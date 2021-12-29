@@ -28,6 +28,10 @@ SDL_Surface *surfaceBat;
 SDL_Surface *surfaceBall;
 SDL_Surface *surfaceTitle;
 
+SDL_Surface *surfaceLeft;
+SDL_Surface *surfaceRight;
+SDL_Surface *surfaceTop;
+
 Rumble *rumble;
 Joystick *joystick;
 HighScore *highscore;
@@ -57,6 +61,9 @@ void initGame()
   graphics->loadImageAplha(screen, "media/bat.png", surfaceBat);
   graphics->loadImageAplha(screen, "media/ball.png", surfaceBall);
   graphics->loadImageAplha(screen, "media/title.png", surfaceTitle);
+  graphics->loadImageAplha(screen, "media/top.bmp", surfaceTop);
+  graphics->loadImageAplha(screen, "media/left.bmp", surfaceLeft);
+  graphics->loadImageAplha(screen, "media/right.bmp", surfaceRight);
 
   audio = new Audio();
   audio->addSound("media/hit1.wav");
@@ -84,6 +91,15 @@ void endGame()
   if(surfaceTitle)
     SDL_FreeSurface(surfaceTitle);
 
+  if(surfaceLeft)
+    SDL_FreeSurface(surfaceLeft);
+
+  if(surfaceRight)
+    SDL_FreeSurface(surfaceRight);
+
+  if(surfaceTop)
+    SDL_FreeSurface(surfaceTop);
+
   delete rumble;
   delete joystick;
   delete highscore;
@@ -102,7 +118,7 @@ void processJoystick()
   }  
 
   if(joystick->getButtonState(GCW_BUTTON_LEFT))
-  {;
+  {
     game->moveBatLeft(3);
   }
 
@@ -157,7 +173,7 @@ void moveBall()
     }
   }
   else
-  {
+  {    
     game->moveBallRight(ball_move_amount);
     if(game->hasBallHitWall())
     {
@@ -200,17 +216,52 @@ void moveBall()
   }
 }
 
+void drawWall()
+{
+  SDL_Rect dest;
+  if(surfaceTop)
+  {
+    dest.y=13;
+    for(int i=0;i<320;i+=20)
+    {
+      dest.x=i;
+      SDL_BlitSurface(surfaceTop,NULL,screen,&dest);
+    }
+  }
+
+  if(surfaceLeft)
+  {
+    dest.x=0;
+    for(int i=16;i<240;i+=28)
+    {
+      dest.y=i;
+      SDL_BlitSurface(surfaceLeft,NULL,screen,&dest);
+    }
+  }
+
+  if(surfaceRight)
+  {
+    dest.x=317;
+    for(int i=16;i<240;i+=28)
+    {
+      dest.y=i;
+      SDL_BlitSurface(surfaceRight,NULL,screen,&dest);
+    }
+  }
+
+}
+
 
 void drawGame()
 {
-  SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
   SDL_Rect dest;
   char text_str[20];
 
   if(game->getInPlay())
   {
-    graphics->drawLine(screen,0,BALL_Y_TOP_LIMIT-1,SCREEN_WIDTH,BALL_Y_TOP_LIMIT-1,
-      SDL_MapRGB(screen->format,255,255,0));
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0x66));
+
+    drawWall();
 
     sprintf(text_str,"High Score: %d",high_score);
     graphics->drawText(screen,text_str,2,1,255,255,0);
@@ -234,6 +285,7 @@ void drawGame()
   }
   else
   {
+    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
     dest.x=0;
     dest.y=55;
 
