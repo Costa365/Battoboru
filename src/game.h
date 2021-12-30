@@ -1,7 +1,8 @@
 #ifndef _GAME_
 #define _GAME_
 
-#define BAT_LIMIT 280
+#define BAT_START 3
+#define BAT_LIMIT 275
 #define BALL_X_LIMIT 310
 #define BALL_Y_BOTTOM_LIMIT 230
 #define BALL_Y_TOP_LIMIT 14

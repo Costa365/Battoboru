@@ -87,8 +87,8 @@ int Game::getInPlay()
 void Game::moveBatLeft(int amount)
 {
   bat_x-=amount;
-  if(bat_x < 0)
-    bat_x=0;
+  if(bat_x < BAT_START)
+    bat_x=BAT_START;
 }
 
 void Game::moveBatRight(int amount)
