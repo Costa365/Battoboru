@@ -28,10 +28,6 @@ SDL_Surface *surfaceBat;
 SDL_Surface *surfaceBall;
 SDL_Surface *surfaceTitle;
 
-SDL_Surface *surfaceLeft;
-SDL_Surface *surfaceRight;
-SDL_Surface *surfaceTop;
-
 Rumble *rumble;
 Joystick *joystick;
 HighScore *highscore;
@@ -61,9 +57,6 @@ void initGame()
   graphics->loadImageAplha(screen, "media/bat.png", surfaceBat);
   graphics->loadImageAplha(screen, "media/ball.png", surfaceBall);
   graphics->loadImageAplha(screen, "media/title.png", surfaceTitle);
-  graphics->loadImageAplha(screen, "media/top.bmp", surfaceTop);
-  graphics->loadImageAplha(screen, "media/left.bmp", surfaceLeft);
-  graphics->loadImageAplha(screen, "media/right.bmp", surfaceRight);
 
   audio = new Audio();
   audio->addSound("media/hit1.wav");
@@ -90,15 +83,6 @@ void endGame()
 
   if(surfaceTitle)
     SDL_FreeSurface(surfaceTitle);
-
-  if(surfaceLeft)
-    SDL_FreeSurface(surfaceLeft);
-
-  if(surfaceRight)
-    SDL_FreeSurface(surfaceRight);
-
-  if(surfaceTop)
-    SDL_FreeSurface(surfaceTop);
 
   delete rumble;
   delete joystick;
@@ -219,38 +203,33 @@ void moveBall()
 void drawWall()
 {
   SDL_Rect dest;
-  if(surfaceTop)
+  
+  dest.w = 19;
+  dest.h = 3;
+  dest.y = 13;
+  for(int i=0;i<320;i+=20)
   {
-    dest.y=13;
-    for(int i=0;i<320;i+=20)
-    {
-      dest.x=i;
-      SDL_BlitSurface(surfaceTop,NULL,screen,&dest);
-    }
+    dest.x=i;
+    SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
-  if(surfaceLeft)
+  dest.w = 3;
+  dest.h = 27;
+  dest.x = 0;
+  for(int i=16;i<240;i+=28)
   {
-    dest.x=0;
-    for(int i=16;i<240;i+=28)
-    {
-      dest.y=i;
-      SDL_BlitSurface(surfaceLeft,NULL,screen,&dest);
-    }
+    dest.y=i;
+    SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
-  if(surfaceRight)
+  dest.x=317;
+  for(int i=16;i<240;i+=28)
   {
-    dest.x=317;
-    for(int i=16;i<240;i+=28)
-    {
-      dest.y=i;
-      SDL_BlitSurface(surfaceRight,NULL,screen,&dest);
-    }
+    dest.y=i;
+    SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
 }
-
 
 void drawGame()
 {
