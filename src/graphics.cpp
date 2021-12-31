@@ -57,7 +57,7 @@ void Graphics::loadImageAplha(SDL_Surface* dst, const char* file, SDL_Surface *&
   {
     surface=SDL_CreateRGBSurface(SDL_SRCCOLORKEY, tmpsurface->w, tmpsurface->h, 16, 0,0,0,0);
     SDL_BlitSurface(tmpsurface,NULL,surface,NULL);
-    SDL_SetColorKey(surface,SDL_SRCCOLORKEY,SDL_MapRGB(dst->format,255,0,255));
+    SDL_SetColorKey(surface,SDL_SRCCOLORKEY,SDL_MapRGB(dst->format,0,0,0));
     SDL_FreeSurface(tmpsurface);
   }
 }

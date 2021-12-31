@@ -235,11 +235,11 @@ void drawGame()
 {
   SDL_Rect dest;
   char text_str[20];
+  
+  SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0x66));
 
   if(game->getInPlay())
   {
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0x66));
-
     drawWall();
 
     sprintf(text_str,"High Score: %d",high_score);
@@ -264,10 +264,9 @@ void drawGame()
   }
   else
   {
-    SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
     dest.x=0;
     dest.y=55;
-
+    
     if(surfaceTitle)
       SDL_BlitSurface(surfaceTitle,NULL,screen,&dest);
 
