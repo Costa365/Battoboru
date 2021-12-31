@@ -202,33 +202,35 @@ void moveBall()
 
 void drawWall()
 {
-  SDL_Rect dest;
-  
-  dest.w = 19;
-  dest.h = 3;
-  dest.y = 13;
   for(int i=0;i<320;i+=20)
   {
-    dest.x=i;
-    SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
+    graphics->drawRect(screen, i, 13, 19, 3, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
-  dest.w = 3;
-  dest.h = 27;
-  dest.x = 0;
   for(int i=16;i<240;i+=28)
   {
-    dest.y=i;
-    SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
+    graphics->drawRect(screen, 0, i, 3, 27, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
-  dest.x=317;
   for(int i=16;i<240;i+=28)
   {
-    dest.y=i;
-    SDL_FillRect(screen, &dest, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
+    graphics->drawRect(screen, 317, i, 3, 27, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
+}
 
+void drawBackground()
+{
+  Uint32 colMain = SDL_MapRGB(screen->format,0,0,0x80);
+  Uint32 colRight = SDL_MapRGB(screen->format,0x20,0x20,0x80);
+  Uint32 colLeft = SDL_MapRGB(screen->format,0,0,0);
+  
+  for(int y=19;y<200;y+=56)
+  {
+    for(int x=6;x<300;x+=78)
+    {
+      graphics->drawPanel(screen, x, y, 74, 52, colMain, colRight, colLeft);
+    }
+  }
 }
 
 void drawGame()
@@ -241,6 +243,8 @@ void drawGame()
   if(game->getInPlay())
   {
     drawWall();
+
+    drawBackground();
 
     sprintf(text_str,"High Score: %d",high_score);
     graphics->drawText(screen,text_str,2,1,255,255,0);

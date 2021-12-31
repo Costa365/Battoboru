@@ -33,6 +33,30 @@ void Graphics::drawLine(SDL_Surface* dst, int x0, int y0, int x1, int y1, Uint32
   }
 }
 
+void Graphics::drawRect(SDL_Surface* dst, int x, int y, int w, int h, Uint32 colour)
+{
+  if(dst)
+  {
+    SDL_Rect rect;
+    
+    rect.w = w;
+    rect.h = h;
+    rect.x = x;
+    rect.y = y;
+
+    SDL_FillRect(dst, &rect, colour);
+  }
+}
+
+void Graphics::drawPanel(SDL_Surface* dst, int x, int y, int w, int h, Uint32 colMain, Uint32 colRight, Uint32 colLeft)
+{
+  drawRect(dst, x, y, w, h, colMain);
+  drawLine(dst, x, y, x+w, y, colLeft);
+  drawLine(dst, x, y, x, y+h, colLeft);
+  drawLine(dst, x+w, y, x+w, y+h, colRight);
+  drawLine(dst, x, y+h, x+w, y+h, colRight);
+}
+
 void Graphics::drawText(SDL_Surface* dst, char* string, int x, int y, int fR, int fG, int fB)
 {
   if(dst && string && font)

@@ -11,10 +11,10 @@ Name=Battobōru
 Comment=Bat and Ball game
 Exec=battoboru.gcw
 Terminal=false
-Type=Application
+Type=Game
 StartupNotify=true
 Icon=battoboru
-Categories=applications;
+Categories=games;
 EOF
 
 # create opk
