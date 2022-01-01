@@ -220,15 +220,14 @@ void drawWall()
 
 void drawBackground()
 {
-  Uint32 colMain = SDL_MapRGB(screen->format,0,0,0x80);
-  Uint32 colRight = SDL_MapRGB(screen->format,0x20,0x20,0x80);
-  Uint32 colLeft = SDL_MapRGB(screen->format,0,0,0);
-  
-  for(int y=19;y<200;y+=56)
+  Uint32 colour[2] = {SDL_MapRGB(screen->format,0,0,0x74), SDL_MapRGB(screen->format,0x00,0x00,0x55)};
+  int colIndex = 0;
+
+  for(int y=19;y<238;y+=21)
   {
-    for(int x=6;x<300;x+=78)
+    for(int x=6;x<305;x+=21)
     {
-      graphics->drawPanel(screen, x, y, 74, 52, colMain, colRight, colLeft);
+      graphics->drawRect(screen, x, y, 13, 13, colour[(colIndex++)%2]);
     }
   }
 }
