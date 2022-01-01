@@ -207,12 +207,12 @@ void drawWall()
     graphics->drawRect(screen, i, 13, 19, 3, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
-  for(int i=16;i<240;i+=28)
+  for(int i=13;i<240;i+=28)
   {
     graphics->drawRect(screen, 0, i, 3, 27, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
 
-  for(int i=16;i<240;i+=28)
+  for(int i=13;i<240;i+=28)
   {
     graphics->drawRect(screen, 317, i, 3, 27, SDL_MapRGB(screen->format,0x70,0xc0,0xe0));
   }
